@@ -24,6 +24,17 @@ app.post('/usuarios', (req, res) => {
     });
 });
 
+app.get('/usuarios', (req, res) => {
+    const query = 'SELECT * FROM usuarios';
+    db.query(query, (err, results) => {
+         if (err) {
+            console.error('Erro ao pegar do banco: ' + err.stack);
+            return res.status(500).json({ mensagem: 'Erro ao salvar a tarefa.' });
+        } 
+         res.json(results);
+    })
+})
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta: ${PORT}`);

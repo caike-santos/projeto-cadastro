@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const texto = document.getElementById('nome');
+
+            const user = localStorage.getItem('nomeGuardado');
+
+            if(user){
+                texto.innerHTML = user;
+            }else{
+                alert("Usuario nao encontrado");
+                window.location.href = 'login.html';
+            }
+        })
+
+        function sair(){
+            localStorage.removeItem('nomeGuardado');
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+<div id="form">
+    <h1>Ola, <span id="nome">...</span></h1>
+    <button onclick="sair()">Deslogar</button>
+</div>
+</body>
+</html>
