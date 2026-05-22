@@ -18,7 +18,7 @@ app.post('/usuarios', (req, res) => {
     db.query(query, [nome, senha], (err, result) => {
         if (err) {
             console.error('Erro ao inserir no banco: ' + err.stack);
-            return res.status(500).json({ mensagem: 'Erro ao salvar a tarefa.' });
+            return res.status(500).json({ mensagem: 'Erro ao salvar o usuario.' });
         }
         res.json({id: result.insertId, nome, senha});
     });
@@ -29,9 +29,22 @@ app.get('/usuarios', (req, res) => {
     db.query(query, (err, results) => {
          if (err) {
             console.error('Erro ao pegar do banco: ' + err.stack);
-            return res.status(500).json({ mensagem: 'Erro ao salvar a tarefa.' });
+            return res.status(500).json({ mensagem: 'Erro ao buscar o usuario.' });
         } 
          res.json(results);
+    })
+})
+
+app.delete('/usuarios/:id', (req, res) => {
+    const { id } = req.params;
+    const query =  'DELETE FROM usuarios WHERE id = ?';
+
+    db.query(query, [id], (err, result) => {
+        if (err) {
+            console.error('Erro ao deletar do banco: ' + err.stack);
+            return res.status(500).json({ mensagem: 'Erro ao deletar o usuario.' });
+        } 
+        res.json({ message: 'Tarefa deletada com sucesso!' });
     })
 })
 

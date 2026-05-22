@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        const apiURL = 'http://localhost:3000/usuarios';
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const lista = document.getElementById('lista');
+            lista.innerHTML = '';
+            listar();
+            
+        });
+
+        async function listar() {
+                const response = await fetch(apiURL);
+                const usuarios = await response.json();
+                lista.innerHTML = '';
+
+                usuarios.forEach(u => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `${u.id} - ${u.nome} - <button onclick="deletar(${u.id})">Excluir</button>`;
+                    lista.appendChild(li);
+                });
+            }
+
+
+         async function deletar(id) {
+                if(confirm("Deseja excluir o usuario do id: " + id)){
+                    await fetch(`${apiURL}/${id}`, {
+                        method: 'DELETE'
+                    });
+                    listar(); 
+                }
+            }
+    </script>
+</head>
+<body>
+    <div id="form">
+        <ul id="lista">
+        </ul>
+    </div>
+
+    
+</body>
+</html>
