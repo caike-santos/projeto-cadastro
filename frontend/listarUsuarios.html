@@ -22,26 +22,30 @@
 
                 usuarios.forEach(u => {
                     const li = document.createElement('li');
-                    li.innerHTML = `${u.id} - ${u.nome} - <button onclick="deletar(${u.id})">Excluir</button>`;
+                    li.innerHTML = `${u.email} - ${u.nome} - <button onclick="deletar('${u.email}')">Excluir</button>`;
                     lista.appendChild(li);
                 });
             }
 
 
-         async function deletar(id) {
-                if(confirm("Deseja excluir o usuario do id: " + id)){
-                    await fetch(`${apiURL}/${id}`, {
+         async function deletar(email) {
+                if(confirm("Deseja excluir o usuario do email: " + email)){
+                    await fetch(`${apiURL}/${email}`, {
                         method: 'DELETE'
                     });
                     listar(); 
                 }
             }
+            function sair(){
+            window.location.href = 'login.html';
+        }
     </script>
 </head>
 <body>
     <div id="form">
         <ul id="lista">
         </ul>
+        <button onclick="sair()">Deslogar</button>
     </div>
 
     
